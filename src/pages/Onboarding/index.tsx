@@ -5,9 +5,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Pressable,
 } from 'react-native';
-import PrimaryButton from 'components/PrimaryButton';
+import PrimaryButton from '../../components/PrimaryButton';
 import {colours, spacing, borderRadii} from '../../constants';
 
 export default function Onboarding() {
@@ -46,7 +45,7 @@ export default function Onboarding() {
       <View style={styles.bottomContainer}>
         <PrimaryButton
           title="Create my account!"
-          // onPress={onboard}
+          onPress={() => null}
           colourText={colours.white}
           colourBackground={colours.primary}
           spacing={spacing.m}
