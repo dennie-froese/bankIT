@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Pressable,
 } from 'react-native';
+import PrimaryButton from 'components/PrimaryButton';
+import {colours, spacing, borderRadii} from '../../constants';
 
 export default function Onboarding() {
   return (
@@ -30,8 +32,9 @@ export default function Onboarding() {
             }}>
             <TextInput
               style={{
-                textAlign: 'left',
+                textAlign: 'center',
                 width: 250,
+                padding: 10,
               }}
               // onChangeText={}
               // value={}
@@ -41,9 +44,19 @@ export default function Onboarding() {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable>
-          <Text>Create my account!</Text>
-        </Pressable>
+        <PrimaryButton
+          title="Create my account!"
+          // onPress={onboard}
+          colourText={colours.white}
+          colourBackground={colours.primary}
+          spacing={spacing.m}
+          borderRadius={borderRadii.xl}
+        />
+        <TouchableOpacity style={{padding: 20}} onPress={() => null}>
+          <Text style={{textDecorationLine: 'underline'}}>
+            I already have an account!
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
