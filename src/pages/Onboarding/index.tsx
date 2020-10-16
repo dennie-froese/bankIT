@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,8 +8,15 @@ import {
 } from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import {colours, spacing, borderRadii} from '../../constants';
+import {StateMachineProvider} from '../../state/StateMachine';
 
 export default function Onboarding() {
+  const [current, send] = useContext(StateMachineProvider);
+  const {user, password} = current.context;
+
+  console.warn(user);
+  // console.warn(current.matches('unauthorised'));
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -35,8 +42,8 @@ export default function Onboarding() {
                 width: 250,
                 padding: 10,
               }}
-              // onChangeText={}
-              // value={}
+              onChangeText={e => send('INPUT_USER', {value: e})}
+              value={user}
               placeholder={'Enter your user email address'}
             />
           </View>
@@ -45,7 +52,7 @@ export default function Onboarding() {
       <View style={styles.bottomContainer}>
         <PrimaryButton
           title="Create my account!"
-          onPress={() => null}
+          onPress={() => send('AUTHORISE')}
           colourText={colours.white}
           colourBackground={colours.primary}
           spacing={spacing.m}
