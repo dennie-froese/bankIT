@@ -14,8 +14,12 @@ export default function Onboarding() {
   const [current, send] = useContext(StateMachineProvider);
   const {user, password} = current.context;
 
-  console.warn(user);
-  // console.warn(current.matches('unauthorised'));
+  // console.warn(user);
+  console.warn(current.matches('authorised'));
+
+  const logon = () => {
+    user ? send('AUTHORISE') : send('ERROR');
+  };
 
   return (
     <View style={styles.container}>
@@ -32,7 +36,9 @@ export default function Onboarding() {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: 'black',
+              borderColor: current.matches('unauthorised.error')
+                ? 'red'
+                : 'black',
               borderWidth: StyleSheet.hairlineWidth,
               borderRadius: 20,
             }}>
@@ -47,12 +53,15 @@ export default function Onboarding() {
               placeholder={'Enter your user email address'}
             />
           </View>
+          {current.matches('unauthorised.error') ? (
+            <Text>Please enter your email address</Text>
+          ) : null}
         </View>
       </View>
       <View style={styles.bottomContainer}>
         <PrimaryButton
           title="Create my account!"
-          onPress={() => send('AUTHORISE')}
+          onPress={logon}
           colourText={colours.white}
           colourBackground={colours.primary}
           spacing={spacing.m}

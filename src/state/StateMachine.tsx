@@ -10,12 +10,30 @@ const stateMachine = Machine({
   },
   states: {
     unauthorised: {
-      on: {
-        AUTHORISE: 'authorised',
-        INPUT_USER: {
-          actions: assign({user: (_, event) => event.value}),
+      initial: 'idle',
+      states: {
+        idle: {
+          on: {
+            AUTHORISE: 'success',
+            INPUT_USER: {
+              actions: assign({user: (_, event) => event.value}),
+            },
+            ERROR: 'error',
+          },
+        },
+        error: {
+          on: {
+            AUTHORISE: 'success',
+            INPUT_USER: {
+              actions: assign({user: (_, event) => event.value}),
+            },
+          },
+        },
+        success: {
+          type: 'final',
         },
       },
+      onDone: 'authorised',
     },
     authorised: {},
   },
