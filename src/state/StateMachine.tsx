@@ -38,8 +38,9 @@ const stateMachine = Machine({
           type: 'final',
         },
       },
-      onDone: 'authorised',
+      onDone: 'signup',
     },
+    signup: {},
     authorised: {},
   },
 });
