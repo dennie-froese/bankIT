@@ -26,9 +26,9 @@ export default function Onboarding() {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <View style={styles.welcomeContainer}>
-          <Text style={styles.textHeader}>Welcome to BanKing!</Text>
+          <Text style={styles.textHeader}>Welcome to BankIT!</Text>
           <Text style={styles.textSubheader}>
-            Create your account using your email address below:
+            Sign up to BankIT using your email address below:
           </Text>
         </View>
         <View style={styles.inputsContainer}>
@@ -61,7 +61,7 @@ export default function Onboarding() {
       </View>
       <View style={styles.bottomContainer}>
         <PrimaryButton
-          title="Create my account!"
+          title="Sign me up!"
           onPress={logon}
           colourText={colours.white}
           colourBackground={colours.primary}

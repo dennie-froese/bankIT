@@ -40,7 +40,21 @@ const stateMachine = Machine({
       },
       onDone: 'signup',
     },
-    signup: {},
+    signup: {
+      on: {
+        REGISTER: 'authorised',
+        INPUT_USER: {
+          actions: assign({
+            user: (_, event) => event.value,
+          }),
+        },
+        INPUT_PASSWORD: {
+          actions: assign({
+            password: (_, event) => event.value,
+          }),
+        },
+      },
+    },
     authorised: {},
   },
 });
