@@ -18,7 +18,7 @@ const stateMachine = Machine({
             AUTHORISE: 'success',
             INPUT_USER: {
               actions: assign({
-                user: (_, event) => (event.value, console.warn(event.value)),
+                user: (_, event) => event.value,
               }),
             },
             ERROR: 'error',
@@ -29,7 +29,7 @@ const stateMachine = Machine({
             AUTHORISE: 'success',
             INPUT_USER: {
               actions: assign({
-                user: (_, event) => (event.value, console.warn(event)),
+                user: (_, event) => event.value,
               }),
             },
           },

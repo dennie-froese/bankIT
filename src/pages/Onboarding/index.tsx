@@ -16,10 +16,7 @@ import StateMachineProvider, {
 export default function Onboarding() {
   const current = useStateMachineState();
   const send = useStateMachineDispatch();
-  const {user} = current;
-
-  console.warn(user);
-  // console.warn(current.matches('authorised'));
+  const user = current?.context.user;
 
   const logon = () => {
     user ? send('AUTHORISE') : send('ERROR');
