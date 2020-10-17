@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Machine, assign} from 'xstate';
+import {useMachine} from '@xstate/react';
 
 const stateMachine = Machine({
   id: 'stateMachine',
@@ -16,7 +17,9 @@ const stateMachine = Machine({
           on: {
             AUTHORISE: 'success',
             INPUT_USER: {
-              actions: assign({user: (_, event) => event.value}),
+              actions: assign({
+                user: (_, event) => (event.value, console.warn(event.value)),
+              }),
             },
             ERROR: 'error',
           },
@@ -25,7 +28,9 @@ const stateMachine = Machine({
           on: {
             AUTHORISE: 'success',
             INPUT_USER: {
-              actions: assign({user: (_, event) => event.value}),
+              actions: assign({
+                user: (_, event) => (event.value, console.warn(event)),
+              }),
             },
           },
         },
@@ -39,6 +44,32 @@ const stateMachine = Machine({
   },
 });
 
-export default stateMachine;
+const StateMachineState = React.createContext<
+  {user: string; password: string} | undefined
+>(undefined);
+const StateMachineDispatch = React.createContext(undefined);
 
-export const StateMachineProvider = React.createContext(null);
+export function StateMachineProvider({children}) {
+  const [current, send] = useMachine(stateMachine);
+  return (
+    <StateMachineState.Provider value={current}>
+      <StateMachineDispatch.Provider value={send}>
+        {children}
+      </StateMachineDispatch.Provider>
+    </StateMachineState.Provider>
+  );
+}
+
+export function useStateMachineState() {
+  const context = useContext(StateMachineState);
+
+  return context;
+}
+
+export function useStateMachineDispatch() {
+  const context = useContext(StateMachineDispatch);
+
+  return context;
+}
+
+export default stateMachine;

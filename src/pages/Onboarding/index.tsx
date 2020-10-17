@@ -8,14 +8,18 @@ import {
 } from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import {colours, spacing, borderRadii} from '../../constants';
-import {StateMachineProvider} from '../../state/StateMachine';
+import StateMachineProvider, {
+  useStateMachineState,
+  useStateMachineDispatch,
+} from '../../state/StateMachine';
 
 export default function Onboarding() {
-  const [current, send] = useContext(StateMachineProvider);
-  const {user, password} = current.context;
+  const current = useStateMachineState();
+  const send = useStateMachineDispatch();
+  const {user} = current;
 
-  // console.warn(user);
-  console.warn(current.matches('authorised'));
+  console.warn(user);
+  // console.warn(current.matches('authorised'));
 
   const logon = () => {
     user ? send('AUTHORISE') : send('ERROR');
