@@ -24,7 +24,7 @@ export default function SignUp() {
         <View style={styles.welcomeContainer}>
           <Text style={styles.textHeader}>Sign up to BankIT</Text>
           <Text style={styles.textSubheader}>
-            Create your account using your email address below:
+            Please secure your account by entering a password below:
           </Text>
         </View>
         <View style={styles.inputsContainer}>
@@ -47,6 +47,7 @@ export default function SignUp() {
               }}
               onChangeText={e => send('INPUT_USER', {value: e})}
               value={user}
+              autoCapitalize="none"
               placeholder={'Enter your user email address'}
             />
           </View>
@@ -68,6 +69,7 @@ export default function SignUp() {
                 padding: 10,
               }}
               secureTextEntry={true}
+              autoCapitalize="none"
               onChangeText={e => send('INPUT_PASSWORD', {value: e})}
               value={password}
               placeholder={'Enter your password'}

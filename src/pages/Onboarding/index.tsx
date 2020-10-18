@@ -18,8 +18,11 @@ export default function Onboarding() {
   const send = useStateMachineDispatch();
   const user = current?.context.user;
 
+  const text = '123@';
   const logon = () => {
-    user ? send('AUTHORISE') : send('ERROR');
+    user && user.includes('@') && user.includes('.')
+      ? send('AUTHORISE')
+      : send('ERROR');
   };
 
   return (
@@ -38,7 +41,7 @@ export default function Onboarding() {
               justifyContent: 'center',
               alignItems: 'center',
               borderColor: current.matches('unauthorised.error')
-                ? 'red'
+                ? colours.danger
                 : 'black',
               borderWidth: StyleSheet.hairlineWidth,
               borderRadius: 20,
@@ -48,14 +51,20 @@ export default function Onboarding() {
                 textAlign: 'center',
                 width: 250,
                 padding: 10,
+                color: current.matches('unauthorised.error')
+                  ? colours.danger
+                  : 'black',
               }}
+              autoCapitalize="none"
               onChangeText={e => send('INPUT_USER', {value: e})}
               value={user}
               placeholder={'Enter your user email address'}
             />
           </View>
           {current.matches('unauthorised.error') ? (
-            <Text>Please enter your email address</Text>
+            <Text style={{color: colours.danger, fontStyle: 'italic'}}>
+              Please check your email address above.
+            </Text>
           ) : null}
         </View>
       </View>
