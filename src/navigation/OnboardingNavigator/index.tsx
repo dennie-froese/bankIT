@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Onboarding from '../../pages/Onboarding';
 import SignUp from '../../pages/SignUp';
+import Login from '../../pages/Login';
 import {colours} from '../../constants';
 import {useStateMachineState} from '../../state/StateMachine';
 
@@ -35,6 +36,15 @@ export default function OnboardingNavigator() {
           <HomeStack.Screen
             name="SignUp"
             component={SignUp}
+            options={{
+              title: '',
+            }}
+          />
+        )}
+        {current.matches('login') && (
+          <HomeStack.Screen
+            name="Login"
+            component={Login}
             options={{
               title: '',
             }}

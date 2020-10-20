@@ -14,8 +14,7 @@ export default function SignUp() {
   const {user, password} = current?.context;
 
   const signup = () => {
-    console.warn(user);
-    console.warn(password);
+    password ? send('REGISTER') : send('ERROR');
   };
 
   return (
@@ -33,9 +32,7 @@ export default function SignUp() {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: current.matches('unauthorised.error')
-                ? 'red'
-                : 'black',
+              borderColor: current.matches('signup.error') ? 'red' : 'black',
               borderWidth: StyleSheet.hairlineWidth,
               borderRadius: 20,
             }}>
@@ -56,9 +53,7 @@ export default function SignUp() {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: current.matches('unauthorised.error')
-                ? 'red'
-                : 'black',
+              borderColor: current.matches('signup.error') ? 'red' : 'black',
               borderWidth: StyleSheet.hairlineWidth,
               borderRadius: 20,
             }}>

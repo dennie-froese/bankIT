@@ -21,6 +21,7 @@ const stateMachine = Machine({
                 user: (_, event) => event.value,
               }),
             },
+            LOGIN: '#stateMachine.login',
             ERROR: 'error',
           },
         },
@@ -41,19 +42,84 @@ const stateMachine = Machine({
       onDone: 'signup',
     },
     signup: {
-      on: {
-        REGISTER: 'authorised',
-        INPUT_USER: {
-          actions: assign({
-            user: (_, event) => event.value,
-          }),
+      initial: 'idle',
+      states: {
+        idle: {
+          on: {
+            REGISTER: 'success',
+            INPUT_USER: {
+              actions: assign({
+                user: (_, event) => event.value,
+              }),
+            },
+            INPUT_PASSWORD: {
+              actions: assign({
+                password: (_, event) => event.value,
+              }),
+            },
+            ERROR: 'error',
+          },
         },
-        INPUT_PASSWORD: {
-          actions: assign({
-            password: (_, event) => event.value,
-          }),
+        error: {
+          on: {
+            REGISTER: 'success',
+            INPUT_USER: {
+              actions: assign({
+                user: (_, event) => event.value,
+              }),
+            },
+            INPUT_PASSWORD: {
+              actions: assign({
+                password: (_, event) => event.value,
+              }),
+            },
+          },
+        },
+        success: {
+          type: 'final',
         },
       },
+      onDone: 'authorised',
+    },
+    login: {
+      initial: 'idle',
+      states: {
+        idle: {
+          on: {
+            LOGIN: 'success',
+            INPUT_USER: {
+              actions: assign({
+                user: (_, event) => event.value,
+              }),
+            },
+            INPUT_PASSWORD: {
+              actions: assign({
+                password: (_, event) => event.value,
+              }),
+            },
+            ERROR: 'error',
+          },
+        },
+        error: {
+          on: {
+            LOGIN: 'success',
+            INPUT_USER: {
+              actions: assign({
+                user: (_, event) => event.value,
+              }),
+            },
+            INPUT_PASSWORD: {
+              actions: assign({
+                password: (_, event) => event.value,
+              }),
+            },
+          },
+        },
+        success: {
+          type: 'final',
+        },
+      },
+      onDone: 'authorised',
     },
     authorised: {},
   },

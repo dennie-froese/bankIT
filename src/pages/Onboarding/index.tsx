@@ -18,11 +18,14 @@ export default function Onboarding() {
   const send = useStateMachineDispatch();
   const user = current?.context.user;
 
-  const text = '123@';
-  const logon = () => {
+  const register = () => {
     user && user.includes('@') && user.includes('.')
       ? send('AUTHORISE')
       : send('ERROR');
+  };
+
+  const goToLogin = () => {
+    send('LOGIN');
   };
 
   return (
@@ -71,13 +74,13 @@ export default function Onboarding() {
       <View style={styles.bottomContainer}>
         <PrimaryButton
           title="Sign me up!"
-          onPress={logon}
+          onPress={register}
           colourText={colours.white}
           colourBackground={colours.primary}
           spacing={spacing.m}
           borderRadius={borderRadii.xl}
         />
-        <TouchableOpacity style={{padding: 20}} onPress={() => null}>
+        <TouchableOpacity style={{padding: 20}} onPress={goToLogin}>
           <Text style={{textDecorationLine: 'underline'}}>
             I already have an account!
           </Text>
