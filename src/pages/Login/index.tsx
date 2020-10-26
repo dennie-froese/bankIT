@@ -14,8 +14,7 @@ export default function Login() {
   const {user, password} = current?.context;
 
   const login = () => {
-    var regEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    regEx.test(password) ? send('LOGIN') : send('ERROR');
+    user && password ? send('LOGIN') : send('ERROR');
   };
 
   return (

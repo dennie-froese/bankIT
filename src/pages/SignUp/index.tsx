@@ -14,7 +14,8 @@ export default function SignUp() {
   const {user, password} = current?.context;
 
   const signup = () => {
-    password ? send('REGISTER') : send('ERROR');
+    var regEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    regEx.test(password) ? send('REGISTER') : send('ERROR');
   };
 
   return (

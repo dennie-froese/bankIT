@@ -4,7 +4,7 @@ import {useMachine} from '@xstate/react';
 
 const stateMachine = Machine({
   id: 'stateMachine',
-  initial: 'unauthorised',
+  initial: 'authorised',
   context: {
     user: '',
     password: '',
@@ -79,7 +79,7 @@ const stateMachine = Machine({
           type: 'final',
         },
       },
-      onDone: 'authorised',
+      onDone: 'successRegister',
     },
     login: {
       initial: 'idle',
@@ -113,6 +113,20 @@ const stateMachine = Machine({
                 password: (_, event) => event.value,
               }),
             },
+          },
+        },
+        success: {
+          type: 'final',
+        },
+      },
+      onDone: 'authorised',
+    },
+    successRegister: {
+      initial: 'idle',
+      states: {
+        idle: {
+          on: {
+            DONE: 'success',
           },
         },
         success: {
