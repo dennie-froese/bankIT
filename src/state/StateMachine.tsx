@@ -135,7 +135,17 @@ const stateMachine = Machine({
       },
       onDone: 'authorised',
     },
-    authorised: {},
+    authorised: {
+      initial: 'idle',
+      states: {
+        idle: {
+          on: {
+            TRANSACTIONS: 'transactions',
+          },
+        },
+        transactions: {},
+      },
+    },
   },
 });
 
