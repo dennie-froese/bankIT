@@ -7,11 +7,13 @@ import SuccessRegister from '../../pages/SuccessRegister';
 import {colours} from '../../constants';
 import {useStateMachineState} from '../../state/StateMachine';
 import AuthorisedNavigator from './../AuthorisedNavigator';
+import GreetingHeader from '../../components/GreetingHeader';
 
 const BaseStack = createStackNavigator();
 
 export default function BaseNavigator() {
   const current = useStateMachineState();
+  const {user, password} = current?.context;
 
   return (
     <>
@@ -69,6 +71,9 @@ export default function BaseNavigator() {
             component={AuthorisedNavigator}
             options={{
               title: '',
+              headerRight: props => (
+                <GreetingHeader title={user} spacing={10} />
+              ),
             }}
           />
         )}
