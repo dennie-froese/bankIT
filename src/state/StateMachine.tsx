@@ -137,14 +137,18 @@ const stateMachine = Machine({
       onDone: 'authorised',
     },
     authorised: {
-      initial: 'idle',
+      initial: 'balances',
       states: {
-        idle: {
+        balances: {
           on: {
             TRANSACTIONS: 'transactions',
           },
         },
-        transactions: {},
+        transactions: {
+          on: {
+            BALANCES: 'balances',
+          },
+        },
       },
     },
   },
@@ -155,7 +159,7 @@ const StateMachineState = React.createContext<
 >(undefined);
 const StateMachineDispatch = React.createContext(undefined);
 
-export function StateMachineProvider({children}) {
+export function StateMachineProvider({children}: JSXElement) {
   const [current, send] = useMachine(stateMachine);
   return (
     <StateMachineState.Provider value={current}>
