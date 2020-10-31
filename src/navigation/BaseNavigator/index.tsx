@@ -1,11 +1,14 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import Onboarding from '../../pages/Onboarding';
 import SignUp from '../../pages/SignUp';
 import Login from '../../pages/Login';
 import SuccessRegister from '../../pages/SuccessRegister';
 import {colours} from '../../constants';
-import {useStateMachineState} from '../../state/StateMachine';
+import {
+  useStateMachineState,
+  useStateMachineDispatch,
+} from '../../state/StateMachine';
 import AuthorisedNavigator from './../AuthorisedNavigator';
 import GreetingHeader from '../../components/GreetingHeader';
 
@@ -13,6 +16,7 @@ const BaseStack = createStackNavigator();
 
 export default function BaseNavigator() {
   const current = useStateMachineState();
+  const send = useStateMachineDispatch();
   const {user, password} = current?.context;
 
   return (
@@ -20,9 +24,7 @@ export default function BaseNavigator() {
       <BaseStack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: current.matches('authorised')
-              ? colours.secondary
-              : colours.primary,
+            backgroundColor: colours.primary,
           },
           headerTintColor: colours.white,
           headerTitleStyle: {
@@ -74,6 +76,10 @@ export default function BaseNavigator() {
               headerRight: props => (
                 <GreetingHeader title={user} spacing={10} />
               ),
+              headerLeft: props =>
+                current.matches('authorised.transactions') ? (
+                  <HeaderBackButton onPress={() => send('BALANCES')} />
+                ) : null,
             }}
           />
         )}
