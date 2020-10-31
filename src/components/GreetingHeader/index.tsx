@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableHighlight, StyleSheet, Text} from 'react-native';
+import {greeting} from '../../lib';
 
 interface Props {
   title: string;
@@ -27,7 +28,7 @@ export default function GreetingHeader({
       }}
       onPress={onPress}>
       <Text style={{fontSize: 20, textAlign: 'center', color: colourText}}>
-        {`Hello, ${title}!`}
+        {`${greeting} ${title}!`}
       </Text>
     </TouchableHighlight>
   );

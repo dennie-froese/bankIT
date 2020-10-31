@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Machine, assign} from 'xstate';
 import {useMachine} from '@xstate/react';
+import {JSXElement} from '@babel/types';
 
 const stateMachine = Machine({
   id: 'stateMachine',
