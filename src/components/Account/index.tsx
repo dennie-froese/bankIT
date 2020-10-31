@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import ProgressBar from '../ProgressBar';
 import {colours} from '../../constants';
+import {useStateMachineDispatch} from '../../state/StateMachine';
 
 interface Props {
   accountType: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function Account({accountType, disabled = false}: Props) {
-  const navigation = useNavigation();
+  const send = useStateMachineDispatch();
 
   return (
     <View>
@@ -18,10 +18,7 @@ export default function Account({accountType, disabled = false}: Props) {
         style={{...styles.accountHeader, borderColor: colours.primary}}
         disabled={disabled}
         onPress={() => {
-          // navigation.navigate('Transactions', {
-          //   accountType,
-          // });
-          null;
+          send('TRANSACTIONS');
         }}>
         <>
           <Text style={styles.accountType}>{accountType}</Text>
